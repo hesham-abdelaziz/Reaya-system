@@ -1,0 +1,88 @@
+img {
+    width: 120px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+fa-icon {
+    display: block;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 15px;
+}
+.user-details fa-icon {
+    display: block;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.user-details .icon{
+    transition: 0.2s;
+}
+.user-details .icon.toggled{
+    transform: rotate(180deg);
+}
+
+.user-details img , .user-settings img {
+    margin-right: 8px;
+    width: 40px;
+     border-radius: 50%;
+      border: 1px solid #fff;
+
+}
+
+.user-settings {
+    position: absolute;
+    right: 30px;
+    width: 210px;
+    height: fit-content;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 15px 17px 0 rgba(0, 0, 0, 10%);
+    transform: translateY(50px);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: 10 !important;
+}
+
+.user-settings.toggled{
+    transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+}
+.user-settings .info{
+    padding: 10px;
+
+}
+.user-settings ul {
+    padding: 0;
+    list-style: none;
+}
+.user-settings ul li {
+    padding: 8px 10px 5px 10px;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+}
+
+
+.user-settings ul li a {
+    color: #222 !important;
+    transition: 0.3s;
+}
+
+.user-settings ul li:hover a {
+    color: #3894ad !important; 
+}

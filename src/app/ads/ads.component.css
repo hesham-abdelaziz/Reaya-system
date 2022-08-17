@@ -1,0 +1,60 @@
+
+:host{
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.swiper {
+    width: 100%;
+    height: 400px;
+    background: #000;
+    position: relative;
+    
+  }
+  
+
+  .parallax-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130%;
+    height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position:  center -150px;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(20px); 
+   }
+
+
+  .title {
+    font-size: 41px;
+    font-weight: 300;
+  }
+  
+  .subtitle {
+    font-size: 21px;
+  }
+  
+ .text {
+    font-size: 14px;
+    max-width: 400px;
+    line-height: 1.3;
+  }
+
+
+  @media (max-width : 992px) {
+    .justify-content-center{
+      justify-content: start !important;
+    }
+    .parallax-bg  {
+      background-position: center;
+    }
+    .row{
+      flex-direction: column-reverse;
+    }
+    .sticky-top {
+      all: unset;
+    }
+  }

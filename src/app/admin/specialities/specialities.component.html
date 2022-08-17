@@ -1,0 +1,114 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+        {{isEditing ? 'Edit speciality' : 'Add new speciality'}}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d(clearForm())"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="name" />
+        <mat-error>This field is required!</mat-error>
+      </mat-form-field>
+
+      <div class="imagePick" (click)="image.click()">
+        <img [src]="imagePreivew" *ngIf="imagePreivew" />
+        <input type="file" (change)="pikcImage($event)" class="d-none" #image />
+        <span *ngIf="!imagePreivew">Pick Image</span>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      mat-raised-button
+      class="mainBtn me-2"
+      (click)="onCreate()"
+    >
+
+      {{isEditing ? 'Edit' : 'Add'}}
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="warn"
+      (click)="c(clearForm())"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>
+
+<mat-card [class.w-100] ="!MenuToggled">
+  <mat-card-header class="justify-content-between align-items-center">
+    <div>
+      <button mat-raised-button class="mainBtn" (click)="open(content)">
+        Add speciality
+      </button>
+    </div>
+    <mat-card-title> Specialites </mat-card-title>
+  </mat-card-header>
+  <hr />
+  <mat-card-content>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      *ngIf="isLoading"
+    >
+      <mat-spinner></mat-spinner>
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="w-100"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Speciality</th>
+        <td mat-cell *matCellDef="let element">
+            <img [src]="element.image" [alt]="element.name" style="width: 39px; height: 39px; margin-right: 15px; border-radius: 5px;">
+            {{ element.name }}
+        </td>
+      </ng-container>
+
+      <!-- status Column -->
+      <ng-container matColumnDef="">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+      </ng-container>
+      <!-- status Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div class="float-end">
+            <button mat-icon-button (click)="onEdit(content , element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDelete(element.id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+    (page)="onPageChanged($event)"
+
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalSpecialites"
+      [pageSize]="specialityPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,158 @@
+<div class="holder">
+    
+      <mat-stepper [orientation]="direction"  [linear]="true" #stepper animationDuration="600">
+        <mat-step [stepControl]="personalInfo" label="Fill out your personal info">
+          <form class="d-flex flex-wrap justify-content-between" [formGroup]="personalInfo">
+            <div class="row">
+                <div class="col-2">
+                  <span class="camera-icon" (click)="image.click()">
+                    <mat-icon *ngIf="!imagePreivew">camera_enhance</mat-icon>
+                    <img *ngIf="imagePreivew" [src]="imagePreivew">
+                  </span>
+                    <input type="file" class="d-none" (change)="pickImage($event)" #image>
+                </div>
+                <div class="col-10 d-flex flex-wrap justify-content-between">
+                    <mat-form-field >
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" formControlName="firstName">
+                        <mat-error>This field is required!</mat-error>
+                      </mat-form-field>
+                      <mat-form-field >
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" formControlName="lastName">
+                        <mat-error>This field is required!</mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="w-100">
+                        <mat-label>Phone</mat-label>
+                        <input matInput type="tel" formControlName="phone">
+                        <mat-error>This field is required!</mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="w-100" >
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email">
+                        <mat-error>This field is required!</mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="w-100" >
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        <mat-error>This field is required!</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                  <button mat-raised-button class="mainBtn mt-2" matStepperNext>Create account</button>
+                </div>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" label="Additional information">
+          <form [formGroup]="secondFormGroup">
+            
+            <div class="row">
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex flex-column">
+                <mat-form-field  class="w-100">
+                  <mat-label>Speciality</mat-label>
+                  <mat-select formControlName="speciality">
+                    <mat-option *ngFor="let spec of specialities" [value]="spec.name">
+                      {{spec.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>This field is required</mat-error>
+                 </mat-form-field>
+                 <mat-form-field  class="w-100">
+                  <mat-label  *ngIf="!loadingGov">Governorate</mat-label>
+                  <mat-label *ngIf="loadingGov">
+                    <mat-spinner class="selectLoad"></mat-spinner>
+                  </mat-label>
+                  <mat-select formControlName="governorate" (selectionChange)="getCities(gov.value)" #gov>
+                    <mat-option *ngFor="let gov of governorates" [value]="gov.id">
+                      {{gov.governorate_name_en}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>This field is required</mat-error>
+
+                 </mat-form-field>
+                 
+                
+                 <mat-form-field class="w-100">
+                  <mat-label *ngIf="!isLoading">Select a city</mat-label>
+                  <mat-label *ngIf="isLoading">
+                    <mat-spinner class="selectLoad"></mat-spinner>
+                  </mat-label>
+                  <mat-select formControlName="city" [disabled]="isLoading">
+                    
+                    <mat-option *ngFor="let city of cities" [value]="city.city_name_en">
+                      {{city.city_name_en}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>This field is required</mat-error>
+
+                 </mat-form-field>
+                 <mat-form-field class="w-100">
+                  <mat-label>Gender</mat-label>
+      
+                  <mat-select formControlName="gender" >
+                    
+                    <mat-option value="Male">
+                      Male
+                    </mat-option>
+                    <mat-option value="Female">
+                      Female
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>This field is required</mat-error>
+
+                 </mat-form-field>
+              </div>
+
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <mat-form-field class="w-100">
+                  <mat-label>Degree</mat-label>
+                  <mat-select formControlName="degree">
+                  <mat-option value="General_Practitioner"> General Practitioner</mat-option>
+                  <mat-option value="Specialist"> Specialist</mat-option>
+                  <mat-option value="Consultant"> Consultant </mat-option>
+                  <mat-option value="Teaching_Assistant"> Teaching Assistant </mat-option>
+                  <mat-option value="Assistant_Lecturer"> Assistant Lecturer</mat-option>
+                  <mat-option value="Assistant_Lecturer"> Assistant Lecturer</mat-option>
+                  <mat-option value="Lecturer"> Lecturer</mat-option>
+                  <mat-option value="Associate_Professor"> Associate Professor</mat-option>
+                  <mat-option value="Professor"> Professor</mat-option>
+                  </mat-select>
+                  <mat-error>This field is required</mat-error>
+
+                </mat-form-field>
+
+
+                <mat-form-field class="w-100">
+                  <mat-label>Commercial registration number</mat-label>
+                  <input matInput type="text" minlength="6" maxlength="6" placeholder="XXX-XXX-XXX" formControlName="regNumber">
+                  <mat-error>This field is required</mat-error>
+
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                  <mat-label>Tax ID number</mat-label>
+                  <input matInput type="text" minlength="6" maxlength="6" placeholder="XXX-XXX-XXX" formControlName="taxID">
+                  <mat-error>This field is required</mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button (click)="createAccount()">Continue</button>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+      
+</div>

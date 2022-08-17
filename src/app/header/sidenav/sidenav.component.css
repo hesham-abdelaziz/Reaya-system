@@ -1,0 +1,63 @@
+.side-menu {
+    border-top: 1px solid #fff;
+    background-color: #3894ad;
+    width: 50px;
+    height: 93vh;
+    position: relative;
+    transition: 0.4s;
+}
+
+.side-menu.opened{
+    width: 200px;
+}
+
+a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+
+    .side-menu.opened a fa-icon{
+         margin-right: 12px;
+
+        font-size: 18px;
+    }
+
+ul {
+    margin-top: 12px;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    margin: 0 0 20px 10px;
+    transition: 0.3s;
+    overflow: hidden;
+
+}
+
+ul li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+ul a.active{
+    transform: translateX(10px) !important;
+}
+
+
+fa-icon {
+    margin-right: 30px;
+    font-size: 20px;
+    transition: 0.4s;
+}
+
+.toggle{
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+}

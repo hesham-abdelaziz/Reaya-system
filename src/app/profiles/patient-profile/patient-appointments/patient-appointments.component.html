@@ -1,0 +1,105 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger" id="modal-basic-title" >
+      Attention!
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    
+    <h4>Are you sure you want to cancel this appointment ?</h4>
+    
+  </div>
+  <div class="modal-footer">
+    <button mat-raised-button class="mainBtn me-2" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button  (click)="c()">Close</button>
+  </div>
+</ng-template>
+
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Appointments
+        </mat-card-title>
+    </mat-card-header>
+<hr>
+    <mat-card-content>
+      <div class="text-center p-2" *ngIf="dataSource?.data?.length == 0 && !isLoading">
+        <h4>No appointments!</h4>
+      </div>
+
+      <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+      </div>
+        <table
+mat-table
+*ngIf="dataSource?.data?.length > 0 && !isLoading"
+[dataSource]="dataSource"
+class="w-100"
+>
+<!-- Name Column -->
+<ng-container matColumnDef="doctor">
+  <th mat-header-cell *matHeaderCellDef>Doctor</th>
+  <td mat-cell *matCellDef="let element">
+    <img 
+    style="width: 40px; border-radius : 50%"
+    [src]="element.appointment[0].doctor.image"
+     [alt]="element.appointment[0].doctor.name ">
+      {{ element.appointment[0].doctor.name }}
+  </td>
+</ng-container>
+<ng-container matColumnDef="spec">
+  <th mat-header-cell *matHeaderCellDef>Speciality</th>
+  <td mat-cell *matCellDef="let element">
+      {{element.appointment[0].doctor.speciality }}
+  </td>
+</ng-container>
+<ng-container matColumnDef="day">
+  <th mat-header-cell *matHeaderCellDef>Day</th>
+  <td mat-cell *matCellDef="let element">
+      {{ element.appointment[0].appointDetails.day[0].day }}
+  </td>
+</ng-container>
+
+<!-- status Column -->
+<ng-container matColumnDef="date">
+  <th mat-header-cell *matHeaderCellDef>Date</th>
+  <td mat-cell *matCellDef="let element">{{ element.appointment[0].appointDetails.pickedDate | date }}</td>
+</ng-container>
+<ng-container matColumnDef="from">
+  <th mat-header-cell *matHeaderCellDef>From</th>
+  <td mat-cell *matCellDef="let element">{{ element.appointment[0].appointDetails.day[0].from | date : 'shortTime' }}</td>
+</ng-container>
+<!-- status Column -->
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef></th>
+  <td mat-cell *matCellDef="let element">
+    <div class="float-end">
+      <button mat-icon-button (click)="cancelAppointment(content,element)">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </div>
+  </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+*ngIf="dataSource?.data?.length > 0 && !isLoading"
+(page)="onPageChanged($event)"
+[pageSizeOptions]="pageSizeOptions"
+[length]="totalAppointments"
+[pageSize]="appointmentsPerPage"
+showFirstLastButtons
+>
+</mat-paginator>
+    </mat-card-content>
+</mat-card>

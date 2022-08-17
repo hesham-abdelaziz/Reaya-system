@@ -1,0 +1,149 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 
+    [class.text-danger] ="isDeleting"
+    class="modal-title" >
+        {{isDeleting ? 'Attention!' : 'Publishing ad'}}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <h5 >
+      {{isDeleting ? 'Are you sure you want to delete ad for this clinic ?' : 'Would you like to add this clinic information to the published ad ?'}}
+    </h5>
+    
+    <div class="d-flex flex-column " *ngIf="!isDeleting">
+      <hr>
+      <mat-slide-toggle color="primary" (change)="toggle($event)" >{{value ? 'Remove discount' : 'Add discount'}}</mat-slide-toggle>
+
+      <form [formGroup]="form" class="d-flex flex-row justify-content-between align-items-baseline">
+        <mat-form-field class="w-100">
+          <mat-label>Discount percentage</mat-label>
+          <input matInput type="number" min="0" max="100" #discount formControlName ='discount'>
+          <fa-icon [icon]="percent" matSuffix></fa-icon>
+          <mat-error *ngIf="form.get('discount').value >= 100 || form.get('discount').value < 0">
+            Value must be greater than 0 and less than 100
+          </mat-error>
+        </mat-form-field>
+      </form>
+
+      <div class="modal-footer mt-4 w-100 align-self-end">
+        <button mat-raised-button class="mainBtn me-2" [disabled]="form.get('discount').value > 100 || form.get('discount').value < 0" (click)="publishAd(discount.value)">Publish</button>
+        <button mat-raised-button 
+        (click)="c()"
+        >Close</button>
+      </div>
+    </div>
+
+    <div class="modal-footer" *ngIf="isDeleting">
+      <button mat-raised-button class="mainBtn me-2" (click)="publishAd()">Delete ad</button>
+      <button mat-raised-button 
+      (click)="c()"
+      >Close</button>
+    </div>
+  </div>
+ 
+</ng-template>
+
+
+<div class="row">
+    <div class="text-end">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+             mat-menu-item 
+             [matTooltip]="clinic?.times?.length == 0 ? 'Please add clinic times!' : ''"
+             matTooltipPosition="before"
+             matTooltipClass="tooltop-font"
+             (click)="onPublish(content)"
+              >
+                <mat-icon>publish</mat-icon>
+                <span>Publish Ad</span>
+              </button>
+            <button mat-menu-item (click)="onDelete(content)" *ngIf="clinic?.ad?.length > 0">
+                <mat-icon>delete_forever</mat-icon>
+                <span>Delete ad</span>
+              </button>
+            <button mat-menu-item (click)="editClinic()">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteClinic()">
+              <mat-icon>delete_forever</mat-icon>
+              <span>Delete</span>
+            </button>
+       
+          </mat-menu>
+    </div>
+  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+    <h4>Clinic Details</h4>
+    <div class="details">
+      <ul>
+        <li>
+          <strong> Name : </strong>
+          {{ clinic?.name }}
+        </li>
+        <li>
+          <strong> Address : </strong>
+          {{ clinic?.address}}
+        </li>
+        <li>
+          <strong> Phone : </strong>
+          {{ clinic?.phone }}
+        </li>
+        <li>
+          <strong> Price : </strong>
+          {{ clinic?.price | currency: "EGP" }}
+        </li>
+      </ul>
+      <hr>
+      <div>
+        <h4>Clinic Images</h4>
+        <swiper
+        [effect]="'coverflow'"
+        [grabCursor]="true"
+        [centeredSlides]="true"
+        [slidesPerView]="1"
+        [coverflowEffect]="{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true
+        }"
+        [pagination]="{
+            clickable: true
+          }"
+        
+        >
+          <ng-template *ngFor="let image of clinic?.images" swiperSlide>
+            <img [src]="image"/>
+          </ng-template>
+        </swiper>
+      </div>
+      <hr>
+      <div class="services">
+        <h4>Clinic services</h4>
+        <ul class="d-flex flex-row justify-content-between flex-wrap" >
+            <li *ngFor="let service of clinic?.services;">
+                {{service}}
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+
+
+       
+            <time-table [clinicId]="id"></time-table>
+
+  </div>
+</div>

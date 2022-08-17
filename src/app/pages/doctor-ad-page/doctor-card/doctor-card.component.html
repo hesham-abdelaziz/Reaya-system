@@ -1,0 +1,67 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >
+          Booking Appointment
+      </h4>
+      <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d(clearForm())"
+    ></button>
+    </div>
+    <div class="modal-body">
+        <h5 class="text-center">Available times</h5>
+        <clinic-times style="width: 75% !important;" [dataSource]="clinic.times"></clinic-times>
+        <hr>
+
+        <form [formGroup]="form" class="text-center mt-2" (ngSubmit)="bookAppointment()">
+            <mat-form-field appearance="outline">
+                <mat-label>Select a date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" (dateChange)="pickDate($event)" formControlName='date'>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>Please select a date!</mat-error>
+            </mat-form-field>
+            <div class="modal-footer mt-2 w-100">
+                <button mat-raised-button class="mainBtn me-2" [disabled]="!exist">Confirm</button>
+                <button mat-raised-button type="button" color="warn" (click)="c(clearForm())">Close</button>
+            </div>
+        </form>
+    </div>
+  </ng-template>
+
+
+
+
+<mat-card>
+    <mat-card-header class="justify-content-center">
+        <mat-card-title>
+            <div class="image-container text-center">
+                <img src="assets/doctor.png" alt="">
+                <p>{{doctor.name}}</p>
+                <p style="font-size: 14px; color:#3894ad; cursor: pointer;">{{doctor.speciality}}</p>
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <hr>
+
+    <mat-card-content>
+        <ul>
+            <li>
+                <mat-icon>phone</mat-icon>
+                {{doctor.phone}}</li>
+            <li>
+                <mat-icon>email</mat-icon>
+                {{doctor.email}}</li>
+
+                <li >
+                    <mat-icon> location_on</mat-icon>
+                    {{gov ? gov[0]?.governorate_name_en + "," + doctor.city : '...'}}
+                </li>
+        </ul>
+    </mat-card-content>
+    <mat-card-actions class="d-grid">
+        <button mat-raised-button class="mainBtn" (click)="onBooking(content)">Book Now</button>
+    </mat-card-actions>
+</mat-card>

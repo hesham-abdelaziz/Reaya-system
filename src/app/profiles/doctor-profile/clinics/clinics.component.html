@@ -1,0 +1,113 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" *ngIf="!isDeleting">
+          
+          {{isEditing ? 'Edit Clinic' : 'Add new clinic'}}
+      </h4>
+      <h4 class="modal-title text-danger" id="modal-basic-title" *ngIf="isDeleting">
+        Attention!
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="d(clearForm())"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <h5 *ngIf="isDeleting">
+        Are you sure you want to delete this clinic ?
+      </h5>
+
+      <form class="d-flex flex-column" *ngIf="!isDeleting" [formGroup]="form" (ngSubmit)="onAdd()">
+        <mat-form-field appearance="outline">
+          <mat-label>Clinic name</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput type="text" formControlName="phone">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput type="tel" formControlName="price">
+        </mat-form-field>
+        <div style="padding-bottom: 1.34375em;">
+          <div class="d-flex align-items-center">
+            <button mat-raised-button class="mainBtn me-1" type="button" (click)="images.click()">Clinic images</button>
+            <span class="d-flex align-items-center" *ngIf="imagesArray.length > 0">{{imagesArray.length}} 
+              files selected
+              <span (click)="clearImages()" style="cursor: pointer;">
+                <mat-icon>cancel</mat-icon>
+              </span>
+            </span>
+          </div>
+          <input class="d-none" type="file" multiple (change)="pickImages($event)" name="image"  #images>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Services</mat-label>
+          <mat-chip-list #servicesList>
+            <mat-chip
+            *ngFor="let service of servicesArray"
+            (removed)="removeService(service)"
+           >
+             {{service}}
+              <button matChipRemove >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input
+            placeholder="New service"
+            formControlName="services"
+            [matChipInputFor]="servicesList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addService($event)">
+            </mat-chip-list>
+        </mat-form-field>
+
+        <div class="modal-footer w-100">
+          <button mat-raised-button class="mainBtn me-2">
+            {{isEditing ? 'Edit' : 'Add'}}
+          </button>
+          <button mat-raised-button type="button" (click)="c(clearForm())" >Cancel</button>
+        </div>
+      </form>
+
+    </div>
+   
+    <div class="modal-footer" *ngIf="isDeleting">
+      <button mat-raised-button class="mainBtn me-2" (click)="onDelete()">Delete</button>
+      <button mat-raised-button 
+      (click)="c()"
+      >Close</button>
+    </div>
+  </ng-template>
+<div class="holder">
+    <div class="header d-flex justify-content-between align-items-baseline">
+        <mat-form-field appearance="outline"  class="clinic-select">
+            <mat-label *ngIf="clinics.length > 0">Select clinic</mat-label>
+            <mat-label *ngIf="clinics.length ==0">No clinics...</mat-label>
+            <mat-select (selectionChange)="getClinic(clinic.value)"  #clinic [disabled]="clinics.length ==0">
+                <mat-option *ngFor="let clinic of clinics" [value]="clinic._id" >
+                  {{clinic.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button class="mainBtn" (click)="addClinic(content)">Add clinic</button>
+    </div>
+    <hr>
+    <div
+    class="d-flex justify-content-center align-items-center"
+    *ngIf="isLoading"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+    <div *ngIf="clinicId.length > 0 && !isLoading">
+      <clinic [id]="clinicId" (edit)="editClinic($event , content)" (delete)="deleteClinic($event , content)"></clinic>
+    </div>
+</div>

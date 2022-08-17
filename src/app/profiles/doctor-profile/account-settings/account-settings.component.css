@@ -1,0 +1,45 @@
+
+
+form{
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+mat-form-field {
+    width: 45% ;
+}
+
+.experiences {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 12px;
+}
+
+@media (max-width : 768px) {
+    form {
+        flex-direction: column;
+    }
+    mat-form-field {
+        width: 100%;
+    }
+    .experiences {
+        flex-direction: column;
+    }
+    .experiences mat-form-field {
+       width: 100% !important;
+    }
+}
+
+:host {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+
+.selectLoad svg {
+    width: 20px !important;
+    height: 20px !important;
+  }

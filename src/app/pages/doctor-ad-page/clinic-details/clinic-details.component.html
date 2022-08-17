@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group color="primary" dynamicHeight="true">
+      <mat-tab label="Doctor info">
+        <div class="about mt-2">
+          <h5>About:</h5>
+          <p style="font-size: 15px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Exercitationem distinctio recusandae mollitia. Esse enim voluptate
+            exercitationem non, nam commodi minus veniam, quibusdam, magnam
+            numquam tempore illo eaque sit ipsa eveniet!
+          </p>
+        </div>
+
+        <div class="experiences mt-3">
+            <h5>Experiences</h5>
+            <ul class="experience d-flex flex-column">
+              <li *ngFor="let exp of doctor.experiences">
+                <span style="font-size: 18px; margin-bottom: 0 !important; font-weight: 600; ">{{exp.position}}</span>
+                <span style="font-size: 14px; margin-bottom: 3px !important;">{{exp.location}}</span>
+                  <span style="font-size: 14px;">{{(exp.from | date) + " - " + (exp.to | date) }}</span> 
+                
+
+              </li>
+            </ul>
+        </div>
+      </mat-tab>
+      <mat-tab label="Clinic details"> 
+      
+
+
+        <div class="clinic-images mt-4 text-center">
+            <h5>Clinic Images</h5>
+
+            <swiper
+            [centeredSlides]="true"   
+            [centeredSlides]="true"   
+             [pagination]="true"
+              [navigation]="true"
+              class="clinic-images-swiper"
+            >
+
+            <ng-template *ngFor="let image of clinic.images" swiperSlide>
+                <img [src]="image" style="width: 250px; height: 250px;" [alt]="clinic.name">
+            </ng-template>
+            </swiper>
+        </div>
+
+        <div class="clinic-details">
+            <h5>Clinic Details</h5>
+            <ul>
+                <li>
+                   
+                    <mat-icon>domain</mat-icon>
+                    {{clinic.name}}</li>
+                <li>
+                  
+                    <mat-icon>location_on</mat-icon>
+                    {{clinic.address}}</li>
+                <li>
+                    
+                    <mat-icon>phone</mat-icon>
+                    {{clinic.phone}}</li>
+                <li>
+                    
+                    <mat-icon>money</mat-icon>
+                    {{clinic.price | currency : 'EGP'}}</li>
+            </ul>
+        </div> 
+    </mat-tab>
+      <mat-tab label="Clinic times"> 
+        <clinic-times [dataSource]="clinic.times"></clinic-times>  
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

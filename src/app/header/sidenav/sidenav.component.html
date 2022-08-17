@@ -1,0 +1,48 @@
+<div class="side-menu" #sideMenu>
+    <ul>
+        <li 
+        matTooltip="Dashboard"
+        matTooltipPosition="right"
+         ><a  routerLink="/admin/dashboard" routerLinkActive="active">
+            <fa-icon [icon]="dashboard"></fa-icon>
+            Dashboard
+        </a></li>
+        <li      matTooltip="Appointments"
+        matTooltipPosition="right"><a routerLink="/admin/appointments"  routerLinkActive="active">
+            <fa-icon [icon]="appointments"></fa-icon>
+            Appointments
+        </a></li>
+        <li      matTooltip="Specialites"
+        matTooltipPosition="right"><a routerLink="/admin/specialites"  routerLinkActive="active">
+            <fa-icon [icon]="speciality"></fa-icon>
+            Specialites
+        </a></li>
+        <li  matTooltip="Doctors"
+        matTooltipPosition="right"><a routerLink="/admin/doctors" routerLinkActive="active">
+            <fa-icon [icon]="doctors"></fa-icon>
+            Doctors
+        </a></li>
+        <li  matTooltip="Patients"
+        matTooltipPosition="right" ><a routerLink="/admin/patients" routerLinkActive="active">
+            <fa-icon [icon] ='patients'></fa-icon>
+            Patients
+        </a></li>
+        <li   matTooltip="Reviews"
+        matTooltipPosition="right"><a routerLink="/admin/reviews" routerLinkActive="active">
+            <fa-icon [icon]="reviews"></fa-icon>
+            Reviews
+        </a></li>
+
+        <li  matTooltip="Countries"
+        matTooltipPosition="right" ><a routerLink="/admin/country" routerLinkActive="active">
+            <fa-icon [icon]="country"></fa-icon>
+            Countries
+        </a></li>
+    </ul>
+
+    <div class="toggle">
+        <button mat-icon-button class="mainBtn" (click)="toggle()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+</div>

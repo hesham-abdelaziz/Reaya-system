@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="d-flex align-items-center justify-content-center mt-5" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="text-center p-3" *ngIf="ads.length == 0 && !isLoading">
+      <h4>No matched results</h4>
+    </div>
+      <div *ngIf="ads.length > 0 && !isLoading" [@show]="ads.length">
+
+        <div *ngFor="let ad of ads" >
+          <mat-card *ngFor="let clinic of ad.clinic">
+            <div class="discount-ribbon" *ngIf="ad.discount > 0">
+              <span>{{ad.discount + "%" + " " + "off"}}</span>
+            </div>
+            <mat-card-content>
+              <div class="row w-100">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-center">
+                  <img class="doctor-image" [src]="clinic.doctor[0].image" alt="" />
+                  <div class="d-flex flex-column">
+                    <div class="doctor-details">
+                      <p class="doctor-name">
+                          <mat-icon>person</mat-icon>
+                          Dr / {{ clinic.doctor[0].name }}
+                      </p>
+                      <p class="doctor-speciality">
+                          <mat-icon> local_hospital</mat-icon>
+                          {{clinic.doctor[0].speciality}}
+                      </p>
+                    </div>
+                    <div class="clinic-details">
+                      <p class="name">
+                          <mat-icon>domain</mat-icon>
+                          {{clinic.name}}
+                      </p>
+                      <p class="address">
+                          <mat-icon>location_on</mat-icon>
+                          {{clinic.address}}
+                      </p>
+                      <p class="price "  >
+                        <span class="d-flex align-items-center" [style.text-decoration] ="ad.discount > 0 ? 'line-through' : 'unset'">
+                          <mat-icon> money</mat-icon>
+                          {{clinic.price  | currency : 'EGP'}}
+                        </span>
+                        <span style="margin-left:10px ;" *ngIf="ad.discount > 0">{{clinic.price * (100 - ad.discount) / 100 | currency : 'EGP'}}</span>
+                      </p>
+
+                      <p class="phone mt-2">
+                        <mat-icon>local_phone</mat-icon>
+                        {{clinic.phone}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-xxl-none d-xl-none d-lg-none d-md-block d-sm-block d-block w-100 mt-3 mb-3">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center">
+                  <swiper
+                  [centeredSlides]="true"            
+                   [pagination]="true"
+                    [navigation]="true"
+                    class="adSwiper"
+                  >
+  
+                  <ng-template *ngFor="let image of clinic.images" swiperSlide>
+                      <img [src]="image" alt="">
+                  </ng-template>
+                  </swiper>
+                  <div class=" w-100 mt-3 mb-3">
+                    <mat-divider></mat-divider>
+                  </div>
+                  <div class="d-xxl-block d-xl-block d-lg-block d-md-grid d-sm-grid d-grid">
+                    <button mat-raised-button class="mainBtn" (click)="navigateToProfile( clinic.doctor , clinic._id)">Book now</button>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+

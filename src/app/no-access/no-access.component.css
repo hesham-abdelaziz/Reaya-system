@@ -1,0 +1,38 @@
+
+
+.body {
+  height: 800px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.body p{
+  font-size: 80px;
+  transition: 0.4s ease;
+}
+a {
+    text-decoration: none;
+    color: #fff;
+
+}
+button{
+    font-size: 24px;
+    padding: 18px 24px;
+    background-color: #3894ad;
+    border-radius: 5px;
+
+}
+
+@media (max-width : 768px) {
+  .body p {
+    font-size: 34px;
+  }
+
+  button{
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+}

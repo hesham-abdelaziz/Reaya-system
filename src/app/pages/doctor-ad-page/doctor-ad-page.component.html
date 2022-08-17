@@ -1,0 +1,15 @@
+<div tabindex="-1" *ngIf="isLoading">
+    <loader class="loader"></loader>
+</div>
+
+ <div class="container-fluid mt-4" *ngIf="!isLoading">
+    <div class="row">
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <doctor-card [doctor]="selectedDoctor" [clinic]="selectedClinic"></doctor-card>
+        </div>
+
+        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <clinic-details [doctor]="selectedDoctor" [clinic]="selectedClinic"></clinic-details>
+        </div>
+    </div>
+</div> 

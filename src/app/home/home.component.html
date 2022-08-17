@@ -1,0 +1,90 @@
+<div class="background-imgs" 
+>
+    <div class="overlay"></div>
+    <swiper
+  [effect]="'fade'"
+  [speed]="1500"
+  [autoplay]="{
+    delay: 2500,
+    disableOnInteraction: true
+  }"
+  [pagination]="false"
+  [navigation]="false"
+  [allowTouchMove] = "false"
+>
+  <ng-template swiperSlide>
+
+    <img src="/assets/carousel/1.jpg" alt="">
+  </ng-template>
+  <ng-template swiperSlide>
+
+    <img src="/assets/carousel/2.jpg" alt="">
+  </ng-template>
+  <ng-template swiperSlide>
+
+    <img src="/assets/carousel/3.jpg" alt="">
+  </ng-template>
+  
+</swiper>
+
+<div class="search-box">
+  <mat-card>
+      <div class="prog-bar mb-2 d-none">
+        <mat-progress-bar style="border-radius: 5px;" mode="query"></mat-progress-bar>
+      </div>
+        <mat-card-header class="justify-content-center">
+            <mat-card-title>
+                Search for a doctor
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="d-flex flex-column align-items-center">
+                <mat-form-field>
+                    <mat-label *ngIf="!loadingGov">Governorate</mat-label>
+                    <mat-label *ngIf="loadingGov">
+                      <mat-spinner class="selectLoad"></mat-spinner>
+                    </mat-label>
+                    <mat-select (selectionChange)="getcities(gov.value)" #gov>
+                        <mat-option *ngFor="let gov of countries" [value]="gov.id">
+                          {{gov.governorate_name_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label *ngIf="!isLoading">City</mat-label>
+                  <mat-label *ngIf="isLoading">
+                    <mat-spinner class="selectLoad"></mat-spinner>
+                  </mat-label>
+                    <mat-select [disabled]="!gov.value">
+                        <mat-option *ngFor="let city of cities" [value]="city.city_name_en">
+                          {{city.city_name_en}}
+                        </mat-option>
+                     
+                       
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Speciality</mat-label>
+                    <mat-select>
+                      <mat-option value="lab">Laboratories</mat-option>
+                        <mat-option *ngFor="let spec of specialities" [value]="spec.name">
+                          {{spec.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Doctor name</mat-label>
+                    <input matInput type="text" placeholder="Ex. John Doe">
+                </mat-form-field>
+
+                <a mat-raised-button routerLink="/ads/doctors" class="mainBtn">Search</a>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+</div>
+
+
+<div class="spec-list container">
+  <spec-list></spec-list>
+</div>

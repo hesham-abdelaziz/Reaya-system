@@ -1,0 +1,64 @@
+<mat-toolbar>
+        <div class="logo" routerLink="/">
+            <img src="assets/logo.png" alt="">
+        </div>
+
+        <div class="spacer" style="flex: 1 1 auto"></div>
+
+
+        <div class="auth-link" *ngIf="!isAuthenticated">
+            <a routerLink="/auth">Login or Signup</a>
+        </div>
+
+        <ng-container *ngIf="isAuthenticated && user.role != 'user'" >
+            <div class="user-details"  (click)="toggleSettings()">
+                <img [src]="user?.image"  [alt]="user?.name">
+                <div class="icon" #icon>
+                    <fa-icon [icon]="down"></fa-icon>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isAuthenticated && user?.role == 'user'" >
+            <div class="user-details"  (click)="toggleSettings()">
+                <img src="{{user?.image ? user?.image : 'assets/user.png'}}"  [alt]="user?.name">
+                <div class="icon" #icon>
+                    <fa-icon [icon]="down"></fa-icon>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isAuthenticated && user?.role == 'admin'">
+
+            <div  style="position: relative;"  >
+                        <div (click)="authService.logOut()">
+                            <fa-icon  [icon]="logout"></fa-icon>
+           </div>
+            </div>
+        </ng-container>
+</mat-toolbar>
+<div class="user-settings" #userSettings>
+    <div class="info d-flex align-items-start">
+        <img *ngIf="user?.role !='user'" [src]="user?.image"  [alt]="user?.name">
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-column" *ngIf="user?.role !='user'">
+                <span style="white-space: nowrap;">{{user?.name}}</span>
+             <span style="color: #757575;">Doctor</span>
+            </div>
+            <div *ngIf="user?.role =='user'">
+                <span style="white-space: nowrap;">{{user?.name}}</span>
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li *ngIf="user?.role != 'user'" routerLink="/doctor/dashboard" (click)="toggleSettings()" >
+            <a >Dashboard</a>
+        </li>
+        <li *ngIf="user?.role == 'user'" routerLink="/patient" (click)="toggleSettings()" >
+            <a >Dashboard</a>
+        </li>
+        <li (click)="authService.logOut()">
+            <a >Logout</a>
+        </li>
+    </ul>
+</div>

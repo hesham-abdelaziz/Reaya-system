@@ -1,0 +1,156 @@
+<div class="overlay" (click) ="toggleMenu()" #overlay></div>
+
+<mat-card class="d-xxl-block d-xl-block d-lg-block d-md-none d-sm-none d-none">
+    <mat-card-header class="flex-column align-items-center">
+        <ng-container *ngIf="user?.role !='user'">
+            <div style="position: relative;">
+                <img (click)="image.click()" [src]="user?.image ? user?.image : 'assets/user.png'" [alt] ="user?.name" >
+                <span class="camera-icon" (click)="image.click()">
+                    <input class="d-none" type="file" (change)="changeImage($event)" #image>
+                    <mat-icon>camera_enhance</mat-icon>
+                </span>
+            </div>
+        <span>Dr / {{user.name}}</span>
+        <span style="color:#3894ad; font-weight: 600; user-select: none;">{{user.speciality}}</span>
+        </ng-container>
+        
+        <ng-container *ngIf="user?.role =='user'">
+            <div style="position: relative;">
+                <img (click)="image.click()" [src]="user?.image ? user?.image : 'assets/user.png'" [alt] ="user?.name" >
+                <span class="camera-icon" (click)="image.click()">
+                    <input class="d-none" type="file" (change)="changeImage($event)" #image>
+                    <mat-icon>camera_enhance</mat-icon>
+                </span>
+            </div>
+            <span>{{user.name}}</span>
+
+        </ng-container>
+       
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <ul>
+            <ng-container *ngIf="user?.role != 'user'">
+                <li routerLink="/doctor/dashboard"  routerLinkActive="active"><a >
+                    <fa-icon [icon]="dashboard"></fa-icon>
+                    Dasboard</a></li>
+                <li routerLink="/doctor/clinics" routerLinkActive="active"><a >
+                    <fa-icon [icon]="clinics"></fa-icon>
+                    Clinics</a></li>
+                <li routerLink="/doctor/appointments" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="appointments"></fa-icon>
+                    Appointments</a></li>
+                <li routerLink="/doctor/reviews" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="reviews"></fa-icon>
+                    Reviews</a></li>
+                <li routerLink="/doctor/account-settings" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="settings"></fa-icon>
+                    Basic info</a></li>
+                <li  routerLink="/doctor/change-password" routerLinkActive="active"><a >
+                    <fa-icon [icon]="password"></fa-icon>
+                    Change password</a></li>
+            </ng-container>
+
+            <ng-container *ngIf="user?.role =='user'">
+                <li routerLink="/patient/appointments" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="appointments"></fa-icon>
+                    Appointments</a></li>
+                <li routerLink="/patient/prescriptions" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="tablets"></fa-icon>
+                    Prescriptions</a></li>
+                <li routerLink="/patient/medical-records" routerLinkActive="active" ><a >
+                    <fa-icon [icon]="records"></fa-icon>
+                    Medical Recrods</a></li>
+    
+                    <li routerLink="/patient/basic-info" routerLinkActive="active" ><a >
+                        <fa-icon [icon]="settings"></fa-icon>
+                        Basic Info</a></li>
+                        <li  routerLink="/patient/change-password" routerLinkActive="active"><a >
+                            <fa-icon [icon]="password"></fa-icon>
+                            Change password</a></li>
+            </ng-container>
+        </ul>
+    </mat-card-content>
+</mat-card>
+
+
+
+<button mat-icon-button class="d-flex align-items-center justify-content-center d-xxl-none d-xl-none d-lg-none d-md-block d-sm-block d-block" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+</button>
+    <div class="card-sm"  #menu>
+        <mat-card class="d-xxl-none d-xl-none d-lg-none d-md-block d-sm-block d-block ">
+            <button mat-icon-button (click)="toggleMenu()">
+                <mat-icon>close</mat-icon>
+            </button>
+        
+            <mat-card-header class="flex-column align-items-center">
+                <ng-container *ngIf="user?.role !='user'">
+                    <div style="position: relative;">
+                        <img (click)="image.click()" [src]="user?.image ? user?.image : 'assets/user.png'" [alt] ="user?.name" >
+                        <span class="camera-icon" (click)="image.click()">
+                            <input class="d-none" type="file" (change)="changeImage($event)" #image>
+                            <mat-icon>camera_enhance</mat-icon>
+                        </span>
+                    </div>
+                <span>Dr / {{user.name}}</span>
+                </ng-container>
+                
+                <ng-container *ngIf="user?.role =='user'">
+                    <div style="position: relative;">
+                        <img (click)="image.click()" [src]="user?.image ? user?.image : 'assets/user.png'" [alt] ="user?.name" >
+                        <span class="camera-icon" (click)="image.click()">
+                            <input class="d-none" type="file" (change)="changeImage($event)" #image>
+                            <mat-icon>camera_enhance</mat-icon>
+                        </span>
+                    </div>
+                    <span>{{user.name}}</span>
+        
+                </ng-container>
+               
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <ul>
+                    <ng-container *ngIf="user?.role != 'user'">
+                        <li routerLink="/doctor/dashboard"  routerLinkActive="active"><a >
+                            <fa-icon [icon]="dashboard"></fa-icon>
+                            Dasboard</a></li>
+                        <li routerLink="/doctor/clinics" routerLinkActive="active"><a >
+                            <fa-icon [icon]="clinics"></fa-icon>
+                            Clinics</a></li>
+                        <li routerLink="/doctor/appointments" routerLinkActive="active" ><a >
+                            <fa-icon [icon]="appointments"></fa-icon>
+                            Appointments</a></li>
+                        <li routerLink="/doctor/reviews" routerLinkActive="active" ><a >
+                            <fa-icon [icon]="reviews"></fa-icon>
+                            Reviews</a></li>
+                        <li routerLink="/doctor/account-settings" routerLinkActive="active" ><a >
+                            <fa-icon [icon]="settings"></fa-icon>
+                            Basic Info</a></li>
+                        <li  routerLink="/doctor/change-password" routerLinkActive="active"><a >
+                            <fa-icon [icon]="password"></fa-icon>
+                            Change password</a></li>
+                    </ng-container>
+        
+                    <ng-container *ngIf="user?.role =='user'">
+                        <li routerLink="/patient/appointments" routerLinkActive="active" ><a >
+                            <fa-icon [icon]="appointments"></fa-icon>
+                            Appointments</a></li>
+                            <li routerLink="/patient/prescriptions" routerLinkActive="active" ><a >
+                                <fa-icon [icon]="tablets"></fa-icon>
+                                Prescriptions</a></li>
+                            <li routerLink="/patient/medical-records" routerLinkActive="active" ><a >
+                                <fa-icon [icon]="records"></fa-icon>
+                                Medical Recrods</a></li>
+                            <li routerLink="/patient/basic-info" routerLinkActive="active" ><a >
+                                <fa-icon [icon]="settings"></fa-icon>
+                                Basic Info</a></li>
+                                <li  routerLink="/patient/change-password" routerLinkActive="active"><a >
+                                    <fa-icon [icon]="password"></fa-icon>
+                                    Change password</a></li>
+                    </ng-container>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </div>

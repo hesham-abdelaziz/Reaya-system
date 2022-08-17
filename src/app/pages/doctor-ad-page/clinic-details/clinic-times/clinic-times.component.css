@@ -1,0 +1,11 @@
+table {
+    box-shadow: 0 15px 17px 0 rgb(0, 0, 0 , .1) !important;
+
+}
+
+
+@media (max-width : 768px) {
+    table {
+        width: 100% !important;
+    }
+}

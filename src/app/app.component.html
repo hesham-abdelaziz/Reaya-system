@@ -1,0 +1,24 @@
+
+<header *ngIf="!router.url.includes('/auth')"></header>
+<div class="container-fluid">
+
+  <div class="row">
+    <div
+    style="transition: 0.4s;"
+    [class.col-1]="!isToggled"
+    [class.col-2] ="isToggled"
+    *ngIf="router.url.includes('/admin')">
+      <sidenav></sidenav>
+    </div>
+  
+    <div
+     [class.col-10] = "router.url.includes('/admin')"
+     style ="padding : 0 !important"
+     >
+      <div [@slide]="getState(o)" >
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,76 @@
+
+.swiper {
+    width: 550px;
+    height: 280px;
+  }
+
+  mat-card {
+    box-shadow: 0 15px 17px 0 rgb(0, 0, 0 , .1) !important;
+
+  }
+.mat-tab-labels{
+    justify-content: space-between;
+}
+
+ul {
+    list-style: none; 
+}
+ul li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.clinic-images-swiper .swiper-slide {
+    text-align: center;
+}
+
+
+@media (max-width : 768px) {
+    .swiper {
+        width: 300px;
+        height: 200px;
+      }
+    .clinic-images img {
+        width: 150px !important;
+        height: 150px !important;
+    }
+}
+.experience {
+    position: relative;
+    
+}
+
+.experience::before{
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: #3894ad;
+    left: 15px;
+    top: -5px;
+}
+
+.experience li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.experience li::before{
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #3894ad;
+    border-radius: 50%;
+    left: -22px;
+    top: 5px;
+}
+
+
+.experience li span {
+    margin-bottom: 8px;
+}

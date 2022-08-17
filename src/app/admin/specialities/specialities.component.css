@@ -1,0 +1,32 @@
+.imagePick {
+    width: 100%;
+    height: 250px;
+    border: 2px solid #222;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+mat-card{
+    width: 95%;
+    margin: 20px auto;
+    transition: 0.4s;
+}
+
+.imagePick img {
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+mat-form-field {
+    width: 100%;
+}

@@ -1,0 +1,30 @@
+<div>
+    
+    <h5 class="mb-5" style="font-weight: 700;">Search by specialites</h5>
+<swiper
+[effect]="'coverflow'"
+[grabCursor]="true"
+[centeredSlides]="true"
+[slidesPerView]="'auto'"
+[coverflowEffect]="{
+  rotate: 50,
+  stretch: 0,
+  depth: 100,
+  modifier: 1,
+  slideShadows: true
+}"
+[pagination]="true"
+
+class="mySwiper"
+>
+<ng-template *ngFor="let spec of specialites" swiperSlide>
+    <div class="d-flex flex-column align-items-center speciality">
+        <div class="image-container">
+            <div class="overlay"></div>
+            <img [src]="spec.image" alt="">
+        </div>
+        <span style="cursor: pointer;" routerLink="/admin">{{spec.name}}</span>
+    </div>
+</ng-template>
+</swiper>
+</div>

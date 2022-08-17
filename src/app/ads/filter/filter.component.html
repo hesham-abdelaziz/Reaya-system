@@ -1,0 +1,58 @@
+<button
+ mat-raised-button 
+ class="d-xxl-none d-xl-none d-lg-none d-md-block d-sm-block d-block mainBtn m-2"
+  (click)="toggleCard()">Specifiy search</button>
+<div class="overlay" (click)="closeCard()" #overlay></div>
+<div class="d-xxl-block d-xl-block d-lg-block sm-screen" #card>
+    <mat-card >
+        <button 
+        (click)="closeCard()"
+        class="d-xxl-none d-xl-none d-lg-none d-md-block d-sm-block d-block closeBtn" mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-card-header class="justify-content-center">
+            <mat-card-title>Specifiy your search</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+    
+        <mat-card-content>
+            <form class="d-flex flex-column justify-content-center mt-4">
+                <mat-form-field>
+                    <mat-label>Degree</mat-label>
+                    <mat-select (selectionChange)="filterAds(degree.value , spec.value , gender.value , price.value)" #degree>
+                        <mat-option value="General_Practitioner"> General Practitioner</mat-option>
+                        <mat-option value="Specialist"> Specialist</mat-option>
+                        <mat-option value="Consultant"> Consultant </mat-option>
+                        <mat-option value="Teaching_Assistant"> Teaching Assistant </mat-option>
+                        <mat-option value="Assistant_Lecturer"> Assistant Lecturer</mat-option>
+                        <mat-option value="Lecturer"> Lecturer</mat-option>
+                        <mat-option value="Associate_Professor"> Associate Professor</mat-option>
+                        <mat-option value="Professor"> Professor</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Speciality</mat-label>
+                    <mat-select (selectionChange)="filterAds(degree.value , spec.value , gender.value , price.value)" #spec>
+                        <mat-option *ngFor="let spec of specialities" [value]="spec.name">{{spec.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select (selectionChange)="filterAds(degree.value , spec.value , gender.value , price.value)" #gender>
+                        <mat-option value="Male">Male</mat-option>
+                        <mat-option value="Female">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Price</mat-label>
+                    <mat-select (selectionChange)="filterAds(degree.value , spec.value , gender.value , price.value)" #price>
+                        <mat-option value="less_50">Less than 50</mat-option>
+                        <mat-option value="between_100_50">From 100 to 50</mat-option>
+                        <mat-option value="between_100_200">From 100 to 200</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
